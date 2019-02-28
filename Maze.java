@@ -3,6 +3,8 @@ import java.io.*;
 public class Maze{
 
     private char[][]maze;
+    private int rows;
+    private int cols;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -20,14 +22,26 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
-        File text = new File("filename");
+        File text = new File(filename);
         //inf stands for the input file
         Scanner inf = new Scanner(text);
         while(inf.hasNextLine()){
             String line = inf.next();
-            System.out.println(line);//hopefully you can do other things with the line
+            cols = line.length();
+            rows++;
+            }
+        maze = new char[rows][cols];
+        int rownum = 0;
+        while(inf.hasNextLine()){
+            String line = inf.next();
+            for (int i = 0; i < cols; i++) {
+              maze[rownum][i] = line.charAt(i);
+            }
+            rownum++;
+            }
+        System.out.println(maze);
         }
-    }
+
 
     private void wait(int millis){
          try {
@@ -58,6 +72,7 @@ public class Maze{
 
             //and start solving at the location of the s.
             //return solve(???,???);
+            return 0;
     }
 
     /*
