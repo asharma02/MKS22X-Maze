@@ -21,6 +21,7 @@ public class Maze{
          throw a FileNotFoundException or IllegalStateException
     */
     public Maze(String filename) throws FileNotFoundException{
+      animate = false;
         //COMPLETE CONSTRUCTOR
       File text = new File(filename);
       //inf stands for the input file
@@ -36,23 +37,17 @@ public class Maze{
       inf = new Scanner(text); //scan again
       for (int x = 0; inf.hasNextLine(); x++){
         String line = inf.nextLine();
-        for (int y = 0; ycor < line.length(); y++){
+        for (int y = 0; y < line.length(); y++){
           maze[x][y] = line.charAt(y);
           if (line.charAt(y) == 'S') {
             startx = x;
             starty = y;
           }
-            }
         }
+      }
 
     }
 
-    private String toString(Maze z){
-      for(int x = 0; x < cols; x++) {
-        for(int y = 0; y < rows; y++) {
-          System.out.println(z.maze[x][y]);
-        }}
-    }
 
     private void wait(int millis){
          try {
