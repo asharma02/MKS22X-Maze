@@ -48,6 +48,16 @@ public class Maze{
 
     }
 
+    private String toString(Maze z){
+      String output = "";
+        for(int i = 0; i < maze.length; i++){
+            for (int j = 0; j< maze[0].length; j++){
+                output += maze[i][j] + " ";
+            }
+            output += '\n';
+        }
+        return output;
+    }
 
     private void wait(int millis){
          try {
