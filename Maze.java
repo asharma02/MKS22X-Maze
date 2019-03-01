@@ -3,8 +3,8 @@ import java.io.*;
 public class Maze{
 
     private char[][]maze;
-    private int rows;
-    private int cols;
+    private int startx;
+    private int starty;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -22,26 +22,37 @@ public class Maze{
     */
     public Maze(String filename) throws FileNotFoundException{
         //COMPLETE CONSTRUCTOR
-        File text = new File(filename);
-        //inf stands for the input file
-        Scanner inf = new Scanner(text);
-        while(inf.hasNextLine()){
-            String line = inf.next();
-            cols = line.length();
-            rows++;
+      File text = new File(filename);
+      //inf stands for the input file
+      Scanner inf = new Scanner(text);
+      int row = 0;
+      int col = 0;
+      while(inf.hasNextLine()){
+          String line = inf.nextLine();
+          row++; //find the length and height of array
+          col = line.length();
+        }
+      maze = new char[row][col]; //initialize array
+      inf = new Scanner(text); //scan again
+      for (int x = 0; inf.hasNextLine(); x++){
+        String line = inf.nextLine();
+        for (int y = 0; ycor < line.length(); y++){
+          maze[x][y] = line.charAt(y);
+          if (line.charAt(y) == 'S') {
+            startx = x;
+            starty = y;
+          }
             }
-        maze = new char[rows][cols];
-        int rownum = 0;
-        while(inf.hasNextLine()){
-            String line = inf.next();
-            for (int i = 0; i < cols; i++) {
-              maze[rownum][i] = line.charAt(i);
-            }
-            rownum++;
-            }
-        System.out.println(maze);
         }
 
+    }
+
+    private String toString(Maze z){
+      for(int x = 0; x < cols; x++) {
+        for(int y = 0; y < rows; y++) {
+          System.out.println(z.maze[x][y]);
+        }}
+    }
 
     private void wait(int millis){
          try {
