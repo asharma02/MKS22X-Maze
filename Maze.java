@@ -110,29 +110,30 @@ public class Maze{
         All visited spots that are part of the solution are changed to '@'
     */
     private int solve(int row, int col, int steps){ //you can add more parameters since this is private; I ADDED INT STEPS
-      //automatic animation! You are welcome.
       if(animate){
-          clearTerminal();
-          System.out.println(this);
-          wait(50);
-      }
-      //COMPLETE SOLVE
-      if(maze[row][col] == 'E') {
-        return steps; //if reached end,
-      }
-      if(maze[row][col] != ' '){
-        return -1; //if not a valid spot (eg is an @ or .), return false with int
-      }
-      for(int i = 0; i < moves.length; i++) { //loop through the moves
-        maze[row][col] = '@'; //put at sign becasue you reached here
-        if(solve(row + moves[i][0], col + moves[i][1], steps + 1) != -1) {
-          return solve(row + moves[i][0], col + moves[i][1], steps + 1);
-        }
-        else {
-          maze[row][col] = '.';
-        }
-      }
-      return -1; //so it compiles
+                clearTerminal();
+                System.out.println(this);
+                wait(20);
+            }
+            if(maze[row][col] == 'E'){
+              return steps;
+            } //return the number of steps when u reach e
+
+            if(maze[row][col] != ' '){
+              return -1;
+            } //check if the move is valid (eg not . or @ or #)
+            for(int i = 0; i < moves.length; i++){
+              maze[row][col] = '@';//mark wya with @ sign
+              int nextmove = solve(row + moves[i][0], col + moves[i][1], steps + 1);
+              if(nextmove != -1){ //if it is valid move
+                return nextmove; //return the solve and continue
+              }else{
+                //if its not a valid move put a "." and backtrack
+                maze[row][col] = '.';
+              }
+            }
+
+            return -1; //so it compiles
     }
 
 }
