@@ -5,6 +5,9 @@ public class Maze{
     private char[][]maze;
     private int startx;
     private int starty;
+    private int[][] moves = new int[][] {{-1,0},{1,0},{0,1},{0,-1}}; //MOVES ARRAY LIKE KNIGHT
+    private int width;
+    private int height;
     private boolean animate;//false by default
 
     /*Constructor loads a maze text file, and sets animate to false by default.
@@ -26,14 +29,12 @@ public class Maze{
       File text = new File(filename);
       //inf stands for the input file
       Scanner inf = new Scanner(text);
-      int row = 0;
-      int col = 0;
       while(inf.hasNextLine()){
           String line = inf.nextLine();
-          row++; //find the length and height of array
-          col = line.length();
+          height++; //find the length and height of array
+          width = line.length();
         }
-      maze = new char[row][col]; //initialize array
+      maze = new char[height][width]; //initialize array
       inf = new Scanner(text); //scan again
       for (int x = 0; inf.hasNextLine(); x++){
         String line = inf.nextLine();
@@ -48,7 +49,7 @@ public class Maze{
 
     }
 
-    private String toString(Maze z){
+    public String toString(){
       String output = "";
         for(int i = 0; i < maze.length; i++){
             for (int j = 0; j< maze[0].length; j++){
@@ -82,13 +83,17 @@ public class Maze{
       Since the constructor exits when the file is not found or is missing an E or S, we can assume it exists.
     */
     public int solve(){
-            //find the location of the S.
-
-            //erase the S
-
-            //and start solving at the location of the s.
-            //return solve(???,???);
-            return 0;
+      //find the location of the S.
+      for(int r = 0; r < height; r++) {
+        for(int c = 0; c < width; c++) {
+          if(maze[r][c] == 'S') {
+            maze[r][c] = ' ';//erase the S
+            return solve(r, c, 0); //return solve at the point
+          }
+        }
+      }
+      //and start solving at the location of the s.
+      return -1; //return -1 if no solution
     }
 
     /*
@@ -104,17 +109,8 @@ public class Maze{
         All visited spots that were not part of the solution are changed to '.'
         All visited spots that are part of the solution are changed to '@'
     */
-    private int solve(int row, int col){ //you can add more parameters since this is private
+    private int solve(int row, int col, int steps){ //you can add more parameters since this is private; I ADDED INT STEPS
 
-        //automatic animation! You are welcome.
-        if(animate){
-            clearTerminal();
-            System.out.println(this);
-            wait(20);
-        }
-
-        //COMPLETE SOLVE
-        return -1; //so it compiles
     }
 
 }
