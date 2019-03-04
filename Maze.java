@@ -84,16 +84,19 @@ public class Maze{
     */
     public int solve(){
       //find the location of the S.
+      int row = 0;
+      int col = 0;
       for(int r = 0; r < height; r++) {
         for(int c = 0; c < width; c++) {
           if(maze[r][c] == 'S') {
             maze[r][c] = ' ';//erase the S
-            return solve(r, c, 0); //return solve at the point
+            row = r;
+            col = c; //return solve at the point
           }
         }
       }
       //and start solving at the location of the s.
-      return -1; //return -1 if no solution
+      return solve(row, col, 0);
     }
 
     /*
@@ -115,19 +118,22 @@ public class Maze{
                 System.out.println(this);
                 wait(20);
             }
+
             if(maze[row][col] == 'E'){
               return steps;
-            } //return the number of steps when u reach e
+            } //return the number of steps when u reach end
 
             if(maze[row][col] != ' '){
               return -1;
             } //check if the move is valid (eg not . or @ or #)
             for(int i = 0; i < moves.length; i++){
               maze[row][col] = '@';//mark wya with @ sign
+              System.out.println(steps);
               int nextmove = solve(row + moves[i][0], col + moves[i][1], steps + 1);
               if(nextmove != -1){ //if it is valid move
                 return nextmove; //return the solve and continue
-              }else{
+              }
+              else{
                 //if its not a valid move put a "." and backtrack
                 maze[row][col] = '.';
               }
