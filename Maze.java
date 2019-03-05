@@ -110,7 +110,7 @@ public class Maze{
       if(animate){
                 clearTerminal();
                 System.out.println(this);
-                wait(20);
+                wait(1);
             }
 
             if(maze[row][col] == 'E'){
@@ -122,7 +122,7 @@ public class Maze{
             } //check if the move is valid (eg not . or @ or #)
             for(int i = 0; i < moves.length; i++){
               maze[row][col] = '@';//mark wya with @ sign
-              System.out.println(steps);
+              //System.out.println(steps);
               int nextmove = solve(row + moves[i][0], col + moves[i][1], steps + 1);
               if(nextmove != -1){ //if it is valid move
                 return nextmove; //return the solve and continue
